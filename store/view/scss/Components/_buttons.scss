@@ -1,0 +1,33 @@
+// Buttons
+.btn {
+    position: relative;
+    border: 0;
+    padding: $font-size-medium;
+    @include flex-center;
+    border-radius: 3px;
+    color: rgba($color-white, 0.85);
+    font-family: 'Muli';
+    font-size: $font-size-small;
+    line-height: $font-size-small;
+    background-color: $color-primary;
+    cursor: pointer;
+    @include transition(all 0.15s);
+
+    &:hover {
+        outline: none;
+        background-color: $color-secondary;
+    }
+
+    &:focus {
+        outline: 0;
+        box-shadow: none !important;
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+
+    +.btn {
+        margin-left: 8px;
+    }
+}
