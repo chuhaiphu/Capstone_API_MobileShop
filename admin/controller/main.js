@@ -5,17 +5,13 @@
 // document.onkeydown = function (event) {
 //     event = (event || window.event);
 //     if (event.keyCode == 123) {
-//         // Prevent F12 
+//         // Prevent F12
 //         return false;
 //     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
-//         // Prevent Ctrl+Shift+I 
+//         // Prevent Ctrl+Shift+I
 //         return false;
 //     }
 // }
-
-
-
-
 
 
 const getEle = (id) => document.getElementById(id);
@@ -88,9 +84,11 @@ window.btnEdit = async (id) => {
     getEle('btnAddPhone').style.display = 'none';
 
     let data = await service.getPhoneById(id);
-    let arrObjValue = Object.keys(data).map((k) => data[k]);
-    // remove id from phone management modal rendering
-    arrObjValue.shift();  
+    let arrObjValue = Object.values(data); // get values instead
+    let idIndex = arrObjValue.indexOf(id); // find index of id
+    if (idIndex > -1) {
+        arrObjValue.splice(idIndex, 1); // remove id from the list
+    }
     helper.fill(arrObjValue); // fill the form with values
 
     getEle('btnUpdate').onclick = async () => {

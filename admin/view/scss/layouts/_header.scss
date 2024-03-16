@@ -1,0 +1,30 @@
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 16px;
+}
+
+.nav1,
+.nav2 {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.nav2 {
+  justify-content: flex-end;
+}
+
+.black {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+header {
+  #navbarColor01 a {
+    transition: 0.3s all ease-in-out;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}

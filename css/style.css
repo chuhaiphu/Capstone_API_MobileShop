@@ -120,10 +120,6 @@ html {
   justify-content: flex-end;
 }
 
-.black {
-  background: rgba(0, 0, 0, 0.8);
-}
-
 header #navbarColor01 a {
   transition: 0.3s all ease-in-out;
 }
