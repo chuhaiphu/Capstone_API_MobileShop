@@ -1,18 +1,3 @@
-// document.addEventListener("contextmenu", function (e) {
-//     e.preventDefault();
-//     //Prevent right click
-// }, false);
-// document.onkeydown = function (event) {
-//     event = (event || window.event);
-//     if (event.keyCode == 123) {
-//         // Prevent F12
-//         return false;
-//     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
-//         // Prevent Ctrl+Shift+I
-//         return false;
-//     }
-// }
-
 
 const getEle = (id) => document.getElementById(id);
 const resetForm = (formId) => getEle(formId).reset();
@@ -29,9 +14,10 @@ const validate = new Validate();
 const renderList = async () => {
     const phoneList = await service.getAllPhones();
     let content = '';
-    phoneList.forEach((ele) => {
+    phoneList.forEach((ele, index) => {
             content += ` <tr>
-        <td>${ele.id}</td>
+            
+        <td>${index+1}</td>
         <td><strong>${ele.name}</strong></td>
         <td>$${ele.price}</td>
         <td style="text-align: center"><img src=${ele.img} alt="phone-img" width="150" height="150"></td>
