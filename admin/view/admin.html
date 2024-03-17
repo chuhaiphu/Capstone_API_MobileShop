@@ -69,6 +69,18 @@
         <main role="main" class="mt-5">
             <div class='d-flex justify-content-between mb-2 py-3 px-2 phoneBanner'>
                 <h3 class="text-light">Phone Management</h3>
+                <div class="d-flex">
+                    <form class="me-3">
+                        <input type="search" id="searchPhoneName" placeholder="Search by name">
+                    </form>
+                    <form class="me-3">
+                        <select id="sortPrice">
+                            <option disabled selected>Sort by price</option>
+                            <option value="asc">Ascending</option>
+                            <option value="desc">Descending</option>
+                        </select>
+                    </form>
+                </div>
                 <div class="text-right">
                     <button type="button" class="btn btn-banner" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         id="addPhoneForm">

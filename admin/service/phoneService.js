@@ -57,4 +57,16 @@ export class Services {
             console.log(err);
         }
     };
+
+    searchPhones = async (term, phoneList) => {
+        term = term.toLowerCase();
+        return phoneList.filter(phone => phone.name.toLowerCase().includes(term));
+    };
+
+    sortPhones = async (order, phoneList) => {
+        let sortedList   = [...phoneList];
+        sortedList.sort((a, b) => order === 'asc' ? a.price - b.price : b.price - a.price);
+        console.log(sortedList);
+        return sortedList;
+    };
 }

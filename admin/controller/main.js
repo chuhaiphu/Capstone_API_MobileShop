@@ -11,8 +11,7 @@ const helper = new Helper();
 const service = new Services();
 const validate = new Validate();
 
-const renderList = async () => {
-    const phoneList = await service.getAllPhones();
+const renderList = async (phoneList) => {
     let content = '';
     phoneList.forEach((ele, index) => {
             content += ` <tr>
@@ -33,7 +32,25 @@ const renderList = async () => {
     getEle('tablePhone').innerHTML = content;
 };
 
-window.onload = async () => renderList();
+window.onload = async () => {
+    const phoneList = await service.getAllPhones();
+    renderList(phoneList);
+};
+
+async function handleSearchInput() {
+    let term = getEle('searchPhoneName').value;
+    const phoneList = await service.getAllPhones();
+    let result = await service.searchPhones(term, phoneList);
+    renderList(result);
+}
+async function handleSortChange() {
+    const phoneList = await service.getAllPhones();
+    const sortOption = getEle('sortPrice').value;
+    const sortedList = await service.sortPhones(sortOption, phoneList);
+    renderList(sortedList);
+}
+getEle('searchPhoneName').addEventListener('input', handleSearchInput);
+getEle('sortPrice').addEventListener('change', handleSortChange);
 
 getEle('addPhoneForm').onclick = () => {
     helper.clearTB();
@@ -42,13 +59,14 @@ getEle('addPhoneForm').onclick = () => {
 };
 
 getEle('btnAddPhone').onclick = async () => {
-    const phoneList = await service.getAllPhones();
+    let phoneList = await service.getAllPhones();
     if (!validate.isValid(phoneList)) return;
 
     const inputs = helper.getInputValue();
     let phone = new Phone('', ...inputs);
     await service.addPhone(phone);
-    renderList();
+    phoneList = await service.getAllPhones();
+    renderList(phoneList);
     resetForm('formPhone');
     CustomModal.alertSuccess('Add phone successfully');
 };
@@ -59,7 +77,8 @@ window.btnDelete = async (id) => {
     );
     if (res.isConfirmed) {
         await service.deletePhone(id);
-        renderList();
+        let phoneList = await service.getAllPhones();
+        renderList(phoneList);
         CustomModal.alertSuccess(`Delete phone successfully`);
     }
 };
@@ -78,13 +97,14 @@ window.btnEdit = async (id) => {
     helper.fill(arrObjValue); // fill the form with values
 
     getEle('btnUpdate').onclick = async () => {
-        const phoneList = await service.getAllPhones();
+        let phoneList = await service.getAllPhones();
         if (!validate.isValid(phoneList, true)) return;
 
         const inputs = helper.getInputValue();
         let phone = new Phone(id, ...inputs);
         await service.updatePhone(phone);
-        renderList();
+        phoneList = await service.getAllPhones();
+        renderList(phoneList);
         CustomModal.alertSuccess('Update phone successfully');
     };
 };
